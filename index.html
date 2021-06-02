@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Time | Test Yourself!</title>
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/about.txt/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png"> -->
+    <!-- <link rel="manifest" href="/site.webmanifest"> -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="main-section background-clipped-bottom">
+        <div id="home" class="flex-center flex-column">
+            <h1>Quiz Time</h1>
+            <div class="starter-controls">
+                <select name="questionChoice" class="questionChoice">
+                    <option value="9" selected hidden disabled>Select your Catergory</option>
+                    <option value="9">General Knowledge</option>
+                    <option value="21">Sport</option>
+                    <option value="14">TV Shows</option>
+                    <option value="11">Movies</option>
+                    <option value="17">Science & Nature</option>
+                    <option value="18">Computer Science</option>
+                </select>
+                <a href="game.html" class="btn btn-start-game disable-btn">Start Quiz</a>
+                <a href="#" class="btn btn-highScore">High Scores</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="score-section">
+        <div id="#" class="flex-center flex-column">
+            <h2 id="scores"> High Scores</h2>
+            <div class="flex-row justify-center score-section__table-container">
+                <table class="highScoreTable">
+                    <thead>
+                        <tr>
+                            <th> <select name="search" class="filterSelect">
+                                    <option value="" selected hidden disabled></option>
+                                    <option value="all">Show all</option>
+                                    <option value="General Knowledge">General Knowledge</option>
+                                    <option value="Sport">Sport</option>
+                                    <option value="TV Shows">TV Shows</option>
+                                    <option value="Movies">Movies</option>
+                                    <option value="Science & Nature">Science & Nature</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                </select> Category </th>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody class="highScoreList">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
