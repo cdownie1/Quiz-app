@@ -266,7 +266,7 @@ function saveHighScore(event) {
 
     localStorage.setItem('highScores', JSON.stringify(highScores));
 
-    //direct to highScores
+    //redirect to highScores
     window.location.assign('index.html#scores');
 }
 
