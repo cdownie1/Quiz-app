@@ -1,97 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz Time | Test Yourself!</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon_io/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon_io/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon_io/favicon-16x16.png"
+    />
     <!-- <link rel="manifest" href="/site.webmanifest"> -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="game.css" />
     <script src="game.js" defer></script>
-</head>
+  </head>
 
-<body>
+  <body>
+    <!-- Main Section -->
     <div class="main-section background-nonclipped">
-        <div class="loadingWheel"></div>
-        <div class="game-box hidden">
-            <div class="score-box flex-center">
-                <i class="fas fa-check"><span id="correct">0</span></i>
-                <i class="fas fa-times"><span id="incorrect">0</span></i>
-                <i class="fas fa-brain"><span id="points">0</span></i>
-                <i class="fas fa-stopwatch"><span id="timer">20</span></i>
-            </div>
-            <div class="game-box__question-box">
-                <h3>Question <span id="question-number">3</span></h3>
+      <div class="loadingWheel"></div>
 
-                <p class="game-box__question-box--question" id="question">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis
-                    fuga nihil sit! Nemo, molestiae quaerat.
-                </p>
-
-                <h3>Answers</h3>
-
-                <div class="choice-container">
-                    <p class="choice-prefix">A</p>
-                    <p class="choice-text" data-number="1">choice 1</p>
-                </div>
-                <div class="choice-container">
-                    <p class="choice-prefix">B</p>
-                    <p class="choice-text" data-number="2">choice 2</p>
-                </div>
-                <div class="choice-container">
-                    <p class="choice-prefix">C</p>
-                    <p class="choice-text" data-number="3">choice 3</p>
-                </div>
-                <div class="choice-container">
-                    <p class="choice-prefix">D</p>
-                    <p class="choice-text" data-number="4">choice 4</p>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="progress-container">
-                    <div class="progress" id="progress"></div>
-                    <div class="circle active">1</div>
-                    <div class="circle">2</div>
-                    <div class="circle">3</div>
-                    <div class="circle">4</div>
-                    <div class="circle">5</div>
-                    <div class="circle">6</div>
-                    <div class="circle">7</div>
-                    <div class="circle">8</div>
-                    <div class="circle">9</div>
-                    <div class="circle">10</div>
-                </div>
-            </div>
+      <!-- Game Section/Modal -->
+      <div class="game-box hidden">
+        <div class="score-box flex-center">
+          <i class="fas fa-check"><span id="correct">0</span></i>
+          <i class="fas fa-times"><span id="incorrect">0</span></i>
+          <i class="fas fa-brain"><span id="points">0</span></i>
+          <i class="fas fa-stopwatch"><span id="timer">20</span></i>
         </div>
+        <div class="game-box__question-box">
+          <h3>Question <span id="question-number">3</span></h3>
+
+          <p class="game-box__question-box--question" id="question">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis
+            fuga nihil sit! Nemo, molestiae quaerat.
+          </p>
+
+          <h3>Answers</h3>
+
+          <div class="choice-container">
+            <p class="choice-prefix">A</p>
+            <p class="choice-text" data-number="1">choice 1</p>
+          </div>
+          <div class="choice-container">
+            <p class="choice-prefix">B</p>
+            <p class="choice-text" data-number="2">choice 2</p>
+          </div>
+          <div class="choice-container">
+            <p class="choice-prefix">C</p>
+            <p class="choice-text" data-number="3">choice 3</p>
+          </div>
+          <div class="choice-container">
+            <p class="choice-prefix">D</p>
+            <p class="choice-text" data-number="4">choice 4</p>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="progress-container">
+            <div class="progress" id="progress"></div>
+            <div class="circle active">1</div>
+            <div class="circle">2</div>
+            <div class="circle">3</div>
+            <div class="circle">4</div>
+            <div class="circle">5</div>
+            <div class="circle">6</div>
+            <div class="circle">7</div>
+            <div class="circle">8</div>
+            <div class="circle">9</div>
+            <div class="circle">10</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="modal hidden">
-        <button class="btn--close-modal">&times;</button>
-        <h2 class="modal__header">
-            Quiz Over! <br />
-            Total Points: <span class="highlight"></span>
-        </h2>
-        <form class="modal__form">
-            <div class="modal__form--details">
-                <input id="username" type="text" placeholder="Username" required />
-                <button class="btn" id="saveScore" type="submit" disabled>
-                    Submit Score!
-                </button>
-            </div>
-            <div class="modal__form--controls">
-                <a href="game.html" class="btn-play-again">Play Again!</a>
-                <a href="index.html#scores" class="btn-highScore">View High Scores</a>
-            </div>
-        </form>
+      <button class="btn--close-modal">&times;</button>
+      <h2 class="modal__header">
+        Quiz Over! <br />
+        Total Points: <span class="highlight"></span>
+      </h2>
+      <form class="modal__form">
+        <div class="modal__form--details">
+          <input id="username" type="text" placeholder="Username" required />
+          <button class="btn" id="saveScore" type="submit" disabled>
+            Submit Score!
+          </button>
+        </div>
+        <div class="modal__form--controls">
+          <a href="game.html" class="btn-play-again">Play Again!</a>
+          <a href="index.html#scores" class="btn-highScore">View High Scores</a>
+        </div>
+      </form>
     </div>
     <div class="overlay hidden"></div>
-</body>
-
+  </body>
 </html>

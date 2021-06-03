@@ -1,3 +1,6 @@
+import 'materialize-css/dist/css/materialize.min.css';
+import 'materialize-css/dist/js/materialize.min';
+
 let getHighScores = JSON.parse(localStorage.getItem('highScores')) || [];
 const scoreList = document.querySelector('.highScoreList');
 
@@ -8,11 +11,20 @@ let lastScore = 100;
 const filter = document.querySelector('.filterSelect');
 const selectedChoice = document.querySelector('.questionChoice');
 
+/// INITIAL LOAD - MATERIALIZED CSS INITIALISERS.
+
+document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.questionChoice');
+    M.FormSelect.init(elems, {});
+});
+
 selectedChoice.addEventListener('change', function (ev) {
     category = event.target.value;
     localStorage.setItem('category', category);
-    startGameBtn.classList.remove('disable-btn');
+    startGameBtn.classList.remove('disabled');
 });
+
+
 
 
 filter.addEventListener('change', function (ev) {

@@ -1,4 +1,6 @@
 'use strict';
+import 'materialize-css/dist/css/materialize.min.css';
+import 'materialize-css/dist/js/materialize.min';
 
 const question = document.querySelector('#question');
 const answerChoices = Array.from(document.querySelectorAll('.choice-text'));
@@ -38,241 +40,242 @@ let questions = [];
 const category = localStorage.getItem('category');
 
 fetch(
-        `https://opentdb.com/api.php?amount=30&category=${category}&difficulty=easy&type=multiple`
-    )
-    .then((response) => response.json())
-    .then((apiQuestions) => {
-        questions = apiQuestions.results.map((question) => {
-            const questionFormatted = {
-                question: question.question,
-            };
+  `https://opentdb.com/api.php?amount=30&category=${category}&difficulty=easy&type=multiple`
+)
+  .then((response) => response.json())
+  .then((apiQuestions) => {
+    questions = apiQuestions.results.map((question) => {
+      const questionFormatted = {
+        question: question.question,
+      };
 
-            const choices = [...question.incorrect_answers];
-            questionFormatted.answer = Math.floor(Math.random() * 4) + 1;
-            choices.splice(questionFormatted.answer - 1, 0, question.correct_answer);
+      const choices = [...question.incorrect_answers];
+      questionFormatted.answer = Math.floor(Math.random() * 4) + 1;
+      choices.splice(questionFormatted.answer - 1, 0, question.correct_answer);
 
-            choices.forEach((choice, index) => {
-                questionFormatted['choice' + (index + 1)] = choice;
-            });
-            return questionFormatted;
-        });
-        gameInit();
-    })
-    .catch((error) => console.error(error));
+      choices.forEach((choice, index) => {
+        questionFormatted['choice' + (index + 1)] = choice;
+      });
+      return questionFormatted;
+    });
+    gameInit();
+  })
+  .catch((error) => console.error(error));
 
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 10;
 
 const gameInit = () => {
-    //reset counters
-    score = 0;
-    right = 0;
-    wrong = 0;
-    questionCounter = 0;
-    currentActive = 1;
-    //create new array of questions
-    availableQuestions = [...questions];
-    getNewQuestion();
-    document.querySelector('.loadingWheel').classList.add('hidden');
-    document.querySelector('.game-box').classList.remove('hidden');
+  //reset counters
+  score = 0;
+  right = 0;
+  wrong = 0;
+  questionCounter = 0;
+  currentActive = 1;
+  //create new array of questions
+  availableQuestions = [...questions];
+  getNewQuestion();
+  document.querySelector('.loadingWheel').classList.add('hidden');
+  document.querySelector('.game-box').classList.remove('hidden');
 };
 
 function getNewQuestion() {
-    if (availableQuestions === 0 || questionCounter >= MAX_QUESTIONS) {
-        //save score to local Storage
-        localStorage.setItem('lastestScore', score);
-        //game complete modal overview
-        openModal();
-        acceptingAnswers = false;
-    }
-    questionCounter++;
-    answered = false;
+  if (availableQuestions === 0 || questionCounter >= MAX_QUESTIONS) {
+    //save score to local Storage
+    localStorage.setItem('lastestScore', score);
+    //game complete modal overview
+    openModal();
+    acceptingAnswers = false;
+  }
+  questionCounter++;
+  answered = false;
 
-    if (questionNumberLabel) {
-        questionNumberLabel.textContent = `${questionCounter} / 10`;
-    }
+  if (questionNumberLabel) {
+    questionNumberLabel.textContent = `${questionCounter} / 10`;
+  }
 
-    const randomQuestionNumber = Math.floor(
-        Math.random() * availableQuestions.length
-    );
-    currentQuestion = availableQuestions[randomQuestionNumber];
-    if (question) {
-        question.innerHTML = currentQuestion.question;
-    }
-    answerChoices.forEach((choice) => {
-        const number = choice.dataset['number'];
-        choice.innerHTML = currentQuestion['choice' + number];
-    });
+  const randomQuestionNumber = Math.floor(
+    Math.random() * availableQuestions.length
+  );
+  currentQuestion = availableQuestions[randomQuestionNumber];
+  if (question) {
+    question.innerHTML = currentQuestion.question;
+  }
+  answerChoices.forEach((choice) => {
+    const number = choice.dataset['number'];
+    choice.innerHTML = currentQuestion['choice' + number];
+  });
 
-    availableQuestions.splice(randomQuestionNumber, 1);
+  availableQuestions.splice(randomQuestionNumber, 1);
 
-    acceptingAnswers = true;
+  acceptingAnswers = true;
 
-    if (questionCounter > 1) currentActive++;
-    updateProgressBar();
+  if (questionCounter > 1) currentActive++;
+  updateProgressBar();
 
-    startQuestionTimer();
+  startQuestionTimer();
 }
 
 if (questionArea) {
-    questionArea.addEventListener('click', function (ev) {
-        //get answer user selected using bubbling
-        const clicked = ev.target.closest('.choice-text');
-        if (!clicked || !acceptingAnswers) return;
+  questionArea.addEventListener('click', function (ev) {
+    //get answer user selected using bubbling
+    const clicked = ev.target.closest('.choice-text');
+    if (!clicked || !acceptingAnswers) return;
 
-        answered = true;
-        acceptingAnswers = false;
-        const selectedAnswer = clicked.dataset.number;
+    answered = true;
+    acceptingAnswers = false;
+    const selectedAnswer = clicked.dataset.number;
 
-        const answerApplyClass = +selectedAnswer === currentQuestion.answer ? 'correct' : 'incorrect';
-        clicked.parentNode.classList.add(answerApplyClass);
+    const answerApplyClass =
+      +selectedAnswer === currentQuestion.answer ? 'correct' : 'incorrect';
+    clicked.parentNode.classList.add(answerApplyClass);
 
-        answerApplyClass === 'correct' ?
-            updateCorrect(CORRECT_BONUS) :
-            updateIncorrect();
+    answerApplyClass === 'correct'
+      ? updateCorrect(CORRECT_BONUS)
+      : updateIncorrect();
 
-        setTimeout(function () {
-            clicked.parentNode.classList.remove(answerApplyClass);
-            document
-                .querySelector(`[data-number='${currentQuestion.answer}']`)
-                .parentNode.classList.remove('correct');
-            getNewQuestion();
-        }, 2000);
+    setTimeout(function () {
+      clicked.parentNode.classList.remove(answerApplyClass);
+      document
+        .querySelector(`[data-number='${currentQuestion.answer}']`)
+        .parentNode.classList.remove('correct');
+      getNewQuestion();
+    }, 2000);
 
-        function updateCorrect(num) {
-            score += num;
-            right++;
-            pointsLabel.textContent = score;
-            correctLabel.textContent = right;
-        }
+    function updateCorrect(num) {
+      score += num;
+      right++;
+      pointsLabel.textContent = score;
+      correctLabel.textContent = right;
+    }
 
-        function updateIncorrect() {
-            wrong++;
-            incorrectLabel.textContent = wrong;
-            document
-                .querySelector(`[data-number='${currentQuestion.answer}']`)
-                .parentNode.classList.add('correct');
-        }
-    });
+    function updateIncorrect() {
+      wrong++;
+      incorrectLabel.textContent = wrong;
+      document
+        .querySelector(`[data-number='${currentQuestion.answer}']`)
+        .parentNode.classList.add('correct');
+    }
+  });
 }
 
 // circle starts 1, index = 0. set all indexes less than currentActive (circle) to active. remove class from those with a higher index
 function updateProgressBar() {
-    circles.forEach((circle, index) => {
-        if (index < currentActive) {
-            circle.classList.add('active');
-        } else {
-            circle.classList.remove('active');
-        }
-    });
+  circles.forEach((circle, index) => {
+    if (index < currentActive) {
+      circle.classList.add('active');
+    } else {
+      circle.classList.remove('active');
+    }
+  });
 
-    //get all those with an active class, divide by all circles for percentage. 25% increments wont line up. -1 from each to get 33% increments.
-    const actives = document.querySelectorAll('.active');
-    progress.style.width =
-        ((actives.length - 1) / (circles.length - 1)) * 100 + '%';
-    // console.log(((actives.length - 1) / (circles.length - 1)) * 100 + '%');
+  //get all those with an active class, divide by all circles for percentage. 25% increments wont line up. -1 from each to get 33% increments.
+  const actives = document.querySelectorAll('.active');
+  progress.style.width =
+    ((actives.length - 1) / (circles.length - 1)) * 100 + '%';
+  // console.log(((actives.length - 1) / (circles.length - 1)) * 100 + '%');
 }
 
 const startQuestionTimer = function () {
-    let sec = 20;
-    timeIcon.classList.remove('warning');
+  let sec = 20;
+  timeIcon.classList.remove('warning');
 
-    function tick() {
-        // In each call, print the remaining time to UI
-        sec > 10 ?
-            (timerLabel.textContent = sec.toString()) :
-            (timerLabel.textContent = sec.toString().padStart(2, '0'));
+  function tick() {
+    // In each call, print the remaining time to UI
+    sec > 10
+      ? (timerLabel.textContent = sec.toString())
+      : (timerLabel.textContent = sec.toString().padStart(2, '0'));
 
-        //add low time warning class
-        if (sec <= 10) {
-            timeIcon.classList.add('warning');
-        }
-        //stop/reset timer when Qu answered.
-        if (answered) {
-            clearInterval(timer);
-            sec = sec;
-        }
-        // When 0 seconds, stop timer and end game
-        if (sec === 0) {
-            clearInterval(timer);
-            openModal();
-        }
-        // Decrease 1s while not answered
-        if (!answered) sec--;
+    //add low time warning class
+    if (sec <= 10) {
+      timeIcon.classList.add('warning');
     }
+    //stop/reset timer when Qu answered.
+    if (answered) {
+      clearInterval(timer);
+      sec = sec;
+    }
+    // When 0 seconds, stop timer and end game
+    if (sec === 0) {
+      clearInterval(timer);
+      openModal();
+    }
+    // Decrease 1s while not answered
+    if (!answered) sec--;
+  }
 
-    // Call the timer every second
-    tick();
-    const timer = setInterval(tick, 1000);
-    return timer;
+  // Call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
 };
 
 // END GAME MODAL
 
 function openModal() {
-    pointsHighlight.textContent = score;
-    if (score === 0) {
-        usernameInput.disabled = true;
-        saveScoreBtn.disabled = true;
-    }
+  pointsHighlight.textContent = score;
+  if (score === 0) {
+    usernameInput.disabled = true;
+    saveScoreBtn.disabled = true;
+  }
 
-    modal.classList.remove('hidden');
-    overlay.classList.remove('hidden');
-    // console.log(answeredIncorrect);
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+  // console.log(answeredIncorrect);
 }
 
 function closeModal() {
-    modal.classList.add('hidden');
-    overlay.classList.add('hidden');
-    return window.location.assign('index.html');
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+  return window.location.assign('index.html');
 }
 
 if (btnCloseModal || overlay) {
-    btnCloseModal.addEventListener('click', closeModal);
-    overlay.addEventListener('click', closeModal);
+  btnCloseModal.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
 }
 
 document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-        closeModal();
-    }
+  if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+    closeModal();
+  }
 });
 
 usernameInput.addEventListener('keyup', function () {
-    saveScoreBtn.disabled = !usernameInput.value;
+  saveScoreBtn.disabled = !usernameInput.value;
 });
 
 let lastestScore = localStorage.getItem('lastestScore');
 const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 
 function saveHighScore(event) {
-    event.preventDefault();
-    window.document.addEventListener('keypress', function (event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-        }
-    });
-    // console.log(lastestScore);
+  event.preventDefault();
+  window.document.addEventListener('keypress', function (event) {
+    if (event.keyCode == 13) {
+      event.preventDefault();
+    }
+  });
+  // console.log(lastestScore);
 
-    const playerScore = {
-        category: category,
-        score: score,
-        username: usernameInput.value,
-    };
-    //ADD / SORT /SET LIMIT
-    highScores.push(playerScore);
-    highScores.sort((a, b) => b.score - a.score);
-    highScores.splice(10);
+  const playerScore = {
+    category: category,
+    score: score,
+    username: usernameInput.value,
+  };
+  //ADD / SORT /SET LIMIT
+  highScores.push(playerScore);
+  highScores.sort((a, b) => b.score - a.score);
+  highScores.splice(10);
 
-    localStorage.setItem('highScores', JSON.stringify(highScores));
+  localStorage.setItem('highScores', JSON.stringify(highScores));
 
-    //redirect to highScores
-    window.location.assign('index.html#scores');
+  //redirect to highScores
+  window.location.assign('index.html#scores');
 }
 
 modal.addEventListener('click', function (ev) {
-    ev.preventDefault();
-    const clicked = ev.target.closest('#saveScore');
-    if (!clicked) return;
-    saveHighScore(ev);
+  ev.preventDefault();
+  const clicked = ev.target.closest('#saveScore');
+  if (!clicked) return;
+  saveHighScore(ev);
 });
