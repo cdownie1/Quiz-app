@@ -2,7 +2,7 @@
 
 * {
     box-sizing: border-box;
-    font-size: 62.5%;
+    /* font-size: 62.5%; */
 }
 
 body {
@@ -48,4 +48,35 @@ h1 {
 .start-game-btns {
     display: flex;
     justify-content: space-around;
+}
+
+/* ******** SCORE SECTION ******** */
+
+
+.score-section h2 {
+    font-weight: 100;
+    margin: 3rem 0rem 5rem 0rem;
+}
+
+.highScoreTable {
+    margin-left: 10%;
+}
+
+.highScoreTable thead th {
+    background-color: #28b485;
+    color: rgb(250, 241, 241);
+    font-size: 1.4rem;
+    text-align: center;
+    padding: 1rem 2rem;
+    font-weight: 100;
+}
+
+.highScoreTable tr td {
+    text-align: center;
+}
+
+/* ******** END GAME MODAL ******** */
+
+.hidden {
+    display: none;
 }
