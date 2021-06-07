@@ -1,6 +1,10 @@
 'use strict';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.min';
+import {
+    AJAXCall
+} from './helper.js'
+
 
 const question = document.querySelector('#question');
 const answerChoices = Array.from(document.querySelectorAll('.choice-text'));
@@ -14,15 +18,14 @@ const timeIcon = document.querySelector('.score-box i:last-child');
 const questionNumberLabel = document.querySelector('#question-number');
 const totalQuestionsLabel = document.querySelector('#total-questions');
 
-// const progress = document.querySelector('#progress');
-// const circles = document.querySelectorAll('.circle');
-
 const modal = document.querySelector('.myModal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const pointsHighlight = document.querySelector('.highlight');
 const usernameInput = document.querySelector('#username');
 const saveScoreBtn = document.querySelector('#saveScore');
+const playAgainBtn = document.querySelector('.btn-play-again');
+const highScoreBtn = document.querySelector('.btn-highScore');
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -39,30 +42,48 @@ let questions = [];
 
 const category = localStorage.getItem('category');
 
-console.log()
 
-fetch(
-        `https://opentdb.com/api.php?amount=30&category=${category}&difficulty=easy&type=multiple`
-    )
-    .then((response) => response.json())
-    .then((apiQuestions) => {
-        questions = apiQuestions.results.map((question) => {
+
+const loadData = async function () {
+    try {
+        const data = await AJAXCall(`https://opentdb.com/api.php?amount=30&category=${category}&difficulty=easy&type=multiple`);
+        questions = data.results.map(question => {
+            //create array of question objects
             const questionFormatted = {
-                question: question.question,
+                question: question.question
             };
 
+            //array of choices - splice in correct answer at random generated answer number
             const choices = [...question.incorrect_answers];
             questionFormatted.answer = Math.floor(Math.random() * 4) + 1;
             choices.splice(questionFormatted.answer - 1, 0, question.correct_answer);
 
+            //format each choice in obj
             choices.forEach((choice, index) => {
                 questionFormatted['choice' + (index + 1)] = choice;
             });
             return questionFormatted;
+
+            // questionFormatted structure
+            // {
+            //     answer: 3
+            //     choice1: "Birdie"
+            //     choice2: "Bogey"
+            //     choice3: "Eagle"
+            //     choice4: "Albatross"
+            //     question: "In golf, what name is given to a hole score of two under par?"
+            // }
         });
         gameInit();
-    })
-    .catch((error) => console.error(error));
+
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+
+}
+loadData();
+
 
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 10;
@@ -113,7 +134,6 @@ function getNewQuestion() {
     acceptingAnswers = true;
 
     if (questionCounter > 1) currentActive++;
-    // updateProgressBar();
 
     startQuestionTimer();
 }
@@ -159,23 +179,6 @@ if (questionArea) {
         }
     });
 }
-
-// // circle starts 1, index = 0. set all indexes less than currentActive (circle) to active. remove class from those with a higher index
-// function updateProgressBar() {
-//     circles.forEach((circle, index) => {
-//         if (index < currentActive) {
-//             circle.classList.add('active');
-//         } else {
-//             circle.classList.remove('active');
-//         }
-//     });
-
-//     //get all those with an active class, divide by all circles for percentage. 25% increments wont line up. -1 from each to get 33% increments.
-//     const actives = document.querySelectorAll('.active');
-//     progress.style.width =
-//         ((actives.length - 1) / (circles.length - 1)) * 100 + '%';
-//     // console.log(((actives.length - 1) / (circles.length - 1)) * 100 + '%');
-// }
 
 const startQuestionTimer = function () {
     let sec = 2000;
@@ -275,8 +278,14 @@ function saveHighScore(event) {
 }
 
 modal.addEventListener('click', function (ev) {
-    ev.preventDefault();
+    // ev.preventDefault();
     const clicked = ev.target.closest('#saveScore');
     if (!clicked) return;
     saveHighScore(ev);
 });
+
+// modal.addEventListener('click', function (ev) {
+//     const clicked = ev.target.closest('.btn-highScore');
+//     if (!clicked) return
+
+// })

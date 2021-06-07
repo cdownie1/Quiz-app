@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 selectedChoice.addEventListener('change', function (ev) {
-    category = event.target.value;
+    category = ev.target.value;
     localStorage.setItem('category', category);
     startGameBtn.classList.remove('disabled');
 });
@@ -33,8 +33,8 @@ selectedChoice.addEventListener('change', function (ev) {
 
 
 filter.addEventListener('change', function (ev) {
-    category = event.target.value;
-    let rank = getHighScores ? 0 : 1;
+    category = ev.target.value;
+    // let rank = getHighScores ? 0 : 1;
 
     if (category === 'all') {
         retrieveScores(getHighScores);
