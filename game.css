@@ -146,6 +146,18 @@
     box-shadow: 0 .5rem .5rem rgba(68, 67, 67, 0.2);
 }
 
+
+/* remove hover styling on mobile devices */
+@media (hover: none) {
+    .choice-container:hover {
+        cursor: pointer;
+        background-image: none;
+        transform: scale(1);
+        background-color: inherit;
+        box-shadow: none;
+    }
+}
+
 .choice-prefix {
     font-size: 1.7rem;
     padding: 0 2rem;
