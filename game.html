@@ -20,8 +20,8 @@
     <!-- Main Section -->
 
     <div class="row">
-        <div class="loadingWheel"></div>
         <div class="col s12">
+            <div class="loadingWheel"></div>
             <div class="card game-card hidden">
                 <div class="card-content teal-text">
                     <div class="score-box flex-center row">
@@ -150,20 +150,22 @@
 
     <div class="myModal hidden">
         <button class="btn--close-modal">&times;</button>
-        <h2 class="modal__header">
+        <h2 class="modal__header flow-text">
             Quiz Over! <br />
             Total Points: <span class="highlight"></span>
         </h2>
         <form class="modal__form">
             <div class="modal__form--details">
-                <input id="username" type="text" placeholder="Username" required />
-                <button class="btn" id="saveScore" type="submit" disabled>
-                    Submit Score!
-                </button>
+                <div class="input-field col s6">
+                    <input id="username" type="text" placeholder="Username" required />
+                    <button class="btn btn-large" id="saveScore" type="submit" disabled>
+                        Submit Score!
+                    </button>
+                </div>
             </div>
             <div class="modal__form--controls">
-                <a href="game.html" class="btn-play-again">Play Again!</a>
-                <a href="index.html#scores" class="btn-highScore">View High Scores</a>
+                <a href="game.html" class=" btn btn-play-again">Play Again!</a>
+                <a href="index.html#scores" class=" btn btn-highScore">View High Scores</a>
             </div>
         </form>
     </div>
