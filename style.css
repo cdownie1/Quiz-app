@@ -23,7 +23,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 97%;
+    /* max-width: 97%; */
     margin: 0 auto;
 }
 
@@ -52,6 +52,9 @@ h1 {
 
 /* ******** SCORE SECTION ******** */
 
+.score-section {
+    max-width: 100vw;
+}
 
 .score-section h2 {
     font-weight: 100;
@@ -59,10 +62,13 @@ h1 {
 }
 
 .highScoreTable {
-    margin-left: 10%;
+    max-width: 95%;
+    margin-left: 0;
 }
 
+
 .highScoreTable thead th {
+
     background-color: #28b485;
     color: rgb(250, 241, 241);
     font-size: 1.4rem;

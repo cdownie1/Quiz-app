@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', function () {
     M.FormSelect.init(elems, {});
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.filterSelect');
+    M.FormSelect.init(elems, {});
+});
+
 selectedChoice.addEventListener('change', function (ev) {
     category = event.target.value;
     localStorage.setItem('category', category);
@@ -50,7 +55,7 @@ const categories = {
 
 const retrieveScores = function (scores) {
     scoreList.innerHTML = '';
-    lastScore = 100;
+    lastScore = 101;
     let rank = scores ? 0 : 1;
     scores.forEach((score, index) => {
         //retrieve prev score
