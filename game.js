@@ -43,7 +43,6 @@ let questions = [];
 const category = localStorage.getItem('category');
 
 
-
 const loadData = async function () {
     try {
         const data = await AJAXCall(`https://opentdb.com/api.php?amount=30&category=${category}&difficulty=easy&type=multiple`);
