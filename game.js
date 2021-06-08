@@ -181,7 +181,7 @@ if (questionArea) {
 }
 
 const startQuestionTimer = function () {
-    let sec = 2000;
+    let sec = 20;
     timeIcon.classList.remove('warning');
 
     function tick() {
