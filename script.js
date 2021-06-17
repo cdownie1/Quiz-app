@@ -18,10 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
   M.FormSelect.init(elems, {});
 });
 
-questionChoice.on('touchend', function (e) {
-  e.stopPropagation();
-});
-
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('.filterSelect');
   M.FormSelect.init(elems, {});
