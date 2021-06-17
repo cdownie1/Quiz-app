@@ -1,81 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz Time | Test Yourself!</title>
-  <!-- <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/about.txt/apple-touch-icon.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Time | Test Yourself!</title>
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/about.txt/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png"> -->
-  <!-- <link rel="manifest" href="/site.webmanifest"> -->
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
-</head>
+    <!-- <link rel="manifest" href="/site.webmanifest"> -->
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
 
-<body>
-  <div class="main-section background-clipped-bottom section">
-    <div id="home" class="flex-center flex-column heading">
-      <h1 class="">Quiz Time</h1>
+  <body>
+    <div class="main-section background-clipped-bottom section">
+      <div id="home" class="flex-center flex-column heading">
+        <h1 class="">Quiz Time</h1>
 
-      <div class="starter-controls row">
-        <div class="input-field col s12">
-          <select name="questionChoice" class="questionChoice">
-            <option value="9" selected hidden disabled>
-              Select Catergory
-            </option>
-            <option value="9">General Knowledge</option>
-            <option value="21">Sport</option>
-            <option value="14">TV Shows</option>
-            <option value="11">Movies</option>
-            <option value="17">Science & Nature</option>
-            <option value="18">Computer Science</option>
-          </select>
+        <div class="starter-controls row">
+          <div class="input-field col s12">
+            <select name="questionChoice" class="questionChoice">
+              <option value="9" selected hidden disabled>
+                Select Catergory
+              </option>
+              <option value="9">General Knowledge</option>
+              <option value="21">Sport</option>
+              <option value="14">TV Shows</option>
+              <option value="11">Movies</option>
+              <option value="17">Science & Nature</option>
+              <option value="18">Computer Science</option>
+            </select>
+          </div>
+        </div>
+        <div class="row start-game-btns">
+          <a href="game.html" class="btn-large btn-start-game disabled"
+            >Start Quiz</a
+          >
+          <a href="#" class="btn-large btn-highScore">High Scores</a>
         </div>
       </div>
-      <div class="row start-game-btns">
-        <a href="game.html" class="btn-large btn-start-game disabled">Start Quiz</a>
-        <a href="#" class="btn-large btn-highScore">High Scores</a>
+    </div>
+
+    <div class="score-section">
+      <h2 id="scores" class="center">High Scores</h2>
+      <div class="row container">
+        <div class="col s12">
+          <table class="highScoreTable striped center">
+            <thead>
+              <tr>
+                <th>
+                  <div class="input-field col s12">
+                    <select name="search" class="filterSelect browser-default">
+                      <option value="" selected disabled>Catergory</option>
+                      <option value="all">Show all</option>
+                      <option value="General Knowledge">
+                        General Knowledge
+                      </option>
+                      <option value="Sport">Sport</option>
+                      <option value="TV Shows">TV Shows</option>
+                      <option value="Movies">Movies</option>
+                      <option value="Science & Nature">Science & Nature</option>
+                      <option value="Computer Science">Computer Science</option>
+                    </select>
+                  </div>
+                </th>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody class="highScoreList"></tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-
-
-
-
-  <div class="score-section">
-    <h2 id="scores" class="center">High Scores</h2>
-    <div class="row container">
-      <div class="col s12">
-        <table class="highScoreTable striped center">
-          <thead>
-            <tr>
-              <th>
-                <div class="input-field col s12">
-                  <select name="search" class="filterSelect">
-                    <option value="" selected disabled>Catergory</option>
-                    <option value="all">Show all</option>
-                    <option value="General Knowledge">General Knowledge</option>
-                    <option value="Sport">Sport</option>
-                    <option value="TV Shows">TV Shows</option>
-                    <option value="Movies">Movies</option>
-                    <option value="Science & Nature">Science & Nature</option>
-                    <option value="Computer Science">Computer Science</option>
-                  </select>
-                </div>
-              </th>
-              <th>Rank</th>
-              <th>Name</th>
-              <th>Points</th>
-            </tr>
-          </thead>
-          <tbody class="highScoreList"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</body>
-
+  </body>
 </html>
